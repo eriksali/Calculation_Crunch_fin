@@ -201,6 +201,8 @@ class Loader {
                     answer.setText("");
                     flag.setText("");
             }
+
+            //Platform.runLater(() -> result.requestFocus());
         });
     }
 
@@ -217,6 +219,7 @@ class Loader {
             answer.setText("");
             sum1 = 0;
             sum2 = 0;
+            Platform.runLater(() -> result.requestFocus());
         });
 
         gp.getChildren().add(continuebtn);
@@ -251,7 +254,7 @@ class Loader {
         //label.setStyle("-fx-color: blue");
         label.setFont(new Font("Arial", 30)); 
         label.setTextFill(Color.color(0, 0, 1));    
-        label.setText("Congrats!");   
+        label.setText("Excellent!");   
             
         Button button= new Button("OK");   
         button.setOnAction(e -> popupwindow.close());
