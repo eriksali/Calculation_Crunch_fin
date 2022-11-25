@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -17,8 +18,10 @@ public class App extends Application {
         Pane Pane = new Pane();
         Label question = new Label("");
         Label answer = new Label();
+        //Label flag = new Label();
+        Text flag = new Text();
         TextField result = new TextField();
-        Loader loader = new Loader(result, answer, question);
+        Loader loader = new Loader(result, answer, question, flag);
    
         Scene scene = new Scene(Pane, 600, 600);
 
