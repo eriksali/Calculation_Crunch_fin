@@ -15,8 +15,8 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "csi2300.App",
-            "projectName": "finish_prompt_376f2d13",
-            "vmArgs": "--module-path d:/_2022_fall/CSI_2300/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
+            "projectName": "Calculation_Crunch_fin_8d4239d0",
+            "vmArgs": "--module-path /Users/ericsali/Documents/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
         }
     ]
 }

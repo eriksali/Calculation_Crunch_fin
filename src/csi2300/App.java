@@ -29,6 +29,7 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         
+        
         loader.loadText(Pane);
         loader.submitBtn(Pane);
         loader.renewBtn(Pane);

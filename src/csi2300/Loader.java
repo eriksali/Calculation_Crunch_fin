@@ -42,7 +42,11 @@ class Loader {
     int number1;
     int number2;
 
-    int counter = 1;
+    int counter = 0;
+    int LEVEL = 3;
+
+    int n;
+    String op;
 
     Loader(TextField result, Label answer, Label question, Text flag) {
         this.question = question;
@@ -53,14 +57,33 @@ class Loader {
 
 
     public int loadQuestion(int number1, int number2) {
-        question.setText(number1 + " x " + number2 + " = ?");
-        return number1 * number2;
+
+        int n = rand.nextInt(1,4);
+
+        switch (n) {
+
+            case 1 -> { question.setText(number1 + " + " + number2 + " = ?");
+                        return number1 + number2;
+                    }
+            case 2 -> { question.setText(number1 + " - " + number2 + " = ?");
+                        return number1 - number2;
+                    }
+            case 3 -> { question.setText(number1 + " * " + number2 + " = ?");
+                        return number1 * number2;
+                    }
+            case 4 -> { question.setText(number1 + " / " + number2 + " = ?");
+                        return number1 / number2;
+                    }
+        }
+        return n;
+
     }
 
 
     public int loadAnswer(TextField result, Label answer) {
         int res = Integer.parseInt(result.getText());
-        answer.setText(result.getText());
+        //answer.setText(result.getText());
+        answer.setText(number1 + " * " + number2 + " = " + result.getText());
         return res;     
     }
 
@@ -127,64 +150,94 @@ class Loader {
         cir.setRadius(30);
         cir.setLayoutX(500);
         cir.setLayoutY(550);
+
+        n = rand.nextInt(1,4);
+        op = "";
+
+        switch (n) {
+
+            case 1 -> { question.setText(number1 + " + " + number2 + " = ?");
+                        op = " + ";
+                        sum1 = number1 + number2;
+                        break;
+                    }
+            case 2 -> { question.setText(number1 + " - " + number2 + " = ?");
+                        op = " - ";                   
+                        sum1 = number1 - number2;
+                        break;
+                    }
+            case 3 -> { question.setText(number1 + " * " + number2 + " = ?");
+                        op = " * ";
+                        sum1 = number1 * number2;
+                        break;
+                    }
+            case 4 -> { question.setText(number1 + " / " + number2 + " = ?");
+                        op = " / ";
+                        sum1 =  number1 / number2;
+                        break;
+                    }
+        }
         
         submit.setDefaultButton(true);
         submit.setOnAction(e -> {
 
             if (counter < 3) { 
 
+
+                //int res = Integer.parseInt(result.getText());
+                //answer.setText(number1 + " * " + number2 + " = " + result.getText());
+
                 try {
-                    sum1 = loadQuestion(number1, number2);
+
+                    //sum1 = loadQuestion(number1, number2);
+
                     if (result.getText().isEmpty()) {
+
                         Alert alert = new Alert(AlertType.ERROR, "Please enter a number");
                         alert.showAndWait();
                         sum2 = -1;
                         answer.setText("");
+                        Platform.runLater(() -> result.requestFocus());
+
                     } else {
-                        sum2 = loadAnswer(result, answer);
+
+                        sum2 = Integer.parseInt(result.getText());
+
+                        if (sum1 == sum2) {
+                                    
+                            transition.setAutoReverse(false);
+                            transition.setNode(cir);
+                            
+                            cir.setLayoutX(500);
+                            cir.setLayoutY(550 - 50 * counter);
+
+                            transition.play();
+
+                            counter++;
+                            
+                            answer.setText(number1 + op + number2 + " = " + result.getText());
+                            flag.setText("Correct");
+                            //flag.setStyle("-fx-color: green");
+                            //flag = new Text("Correct!");
+                            flag.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
+                            flag.setFill(Color.GREEN);
+                            result.clear();
+                        }
+                        else {
+                            answer.setText(number1 + op + number2 + " = " + result.getText());
+                            flag.setText("Incorrect");
+                            //flag.setStyle("-fx-color: red");
+                            //flag = new Text("Incorrect!");
+                            flag.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
+                            flag.setFill(Color.RED);
+                            result.clear();
+                        } 
                     }
                     
                 } catch(NumberFormatException ex){ 
                     ;
                 }
 
-                
-                if (!(result.getText().isEmpty())) {
-
-                    if (sum1 == sum2) {
-                                
-                        transition.setAutoReverse(false);
-                        transition.setNode(cir);
-                        
-                        cir.setLayoutX(500);
-                        cir.setLayoutY(550 - 50 * counter);
-
-                        transition.play();
-
-                        counter++;
-                        
-                        answer.setText(number1 + " x " + number2 + " = " + result.getText());
-                        flag.setText("Correct");
-                        //flag.setStyle("-fx-color: green");
-                        //flag = new Text("Correct!");
-                        flag.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
-                        flag.setFill(Color.GREEN);
-                        result.clear();
-                    }
-                    else {
-                        counter++;
-                        answer.setText(number1 + " x " + number2 + " = " + result.getText());
-                        flag.setText("Incorrect");
-                        //flag.setStyle("-fx-color: red");
-                        //flag = new Text("Incorrect!");
-                        flag.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
-                        flag.setFill(Color.RED);
-                        result.clear();
-                    } 
-                    //result.requestFocus();
-                    //continuebtn.setDefaultButton(true);
-                    //Platform.runLater(() -> result.requestFocus());
-                }
                 
             } else {
                     transition.setAutoReverse(false);
@@ -193,7 +246,8 @@ class Loader {
                     cir.setLayoutY(50);
                     // Alert alert = new Alert(AlertType.INFORMATION, "EXCELLENT!");
                     // alert.showAndWait();
-                    display();
+                    if (counter == LEVEL)
+                        display();
                     cir.setLayoutY(550);
                     counter = 1;
                     result.clear();
@@ -211,14 +265,38 @@ class Loader {
         Button continuebtn = new Button("Continue");
         
         continuebtn.setOnAction(e -> {
-            number1 = rand.nextInt(10); 
-            number2 = rand.nextInt(10);
+                
+            n = rand.nextInt(1,4);
+            op = "";
 
-            question.setText(number1 + " x " + number2);
+            switch (n) {
+
+                case 1:     question.setText(number1 + " + " + number2 + " = ?");
+                            op = " + ";
+                            sum1 = number1 + number2;
+                            break;
+                        
+                case 2:     question.setText(number1 + " - " + number2 + " = ?");
+                            op = " - ";                   
+                            sum1 = number1 - number2;
+                            break;
+                        
+                case 3:     question.setText(number1 + " * " + number2 + " = ?");
+                            op = " * ";
+                            sum1 = number1 * number2;
+                            break;
+                        
+                case 4:     question.setText(number1 + " / " + number2 + " = ?");
+                            op = " / ";
+                            sum1 =  number1 / number2;
+                            break;
+                        
+            }
+
             result.clear();
             answer.setText("");
-            sum1 = 0;
-            sum2 = 0;
+            flag.setText("");
+
             Platform.runLater(() -> result.requestFocus());
         });
 

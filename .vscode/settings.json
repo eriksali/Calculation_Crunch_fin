@@ -10,6 +10,7 @@
         "d:\\_2022_fall\\CSI_2300\\javafx-sdk-19\\lib\\javafx.media.jar",
         "d:\\_2022_fall\\CSI_2300\\javafx-sdk-19\\lib\\javafx.swing.jar",
         "d:\\_2022_fall\\CSI_2300\\javafx-sdk-19\\lib\\javafx.web.jar",
-        "d:\\_2022_fall\\CSI_2300\\javafx-sdk-19\\lib\\javafx-swt.jar"
+        "d:\\_2022_fall\\CSI_2300\\javafx-sdk-19\\lib\\javafx-swt.jar",
+        "/Users/ericsali/Documents/**/*.jar"
     ]
 }
